@@ -865,6 +865,40 @@
 
     <!--==================== MAIN JS ====================-->
     <script src="assets/js/main.js"></script>
+    <!--*==================== Fetching Data ====================*-->
+
+    <script>
+        let feedbacks = [];
+
+
+        const addFeedback = (ev) => {
+            ev.preventDefault(); //to stop the from from submitting randomly
+            let feedback = {
+                id: Date.now(),
+                name: document.getElementById('contact_name').value,
+                email: document.getElementById('contact_email').value,
+                project: document.getElementById('contact_project').value,
+                message: document.getElementById('contact_message').value,
+            }
+
+            feedbacks.push(feedback);
+            document.forms[0].reset(); //to clear the forms 
+            //document.querySelector('.form').reset();
+
+            // //for display purposes only
+            // console.warn('added', { feedbacks });
+            // let pre = document.querySelector('#msg pre');
+            // pre.textContent = '\n' + JSON.stringify(feedbacks, '\t', 2);
+
+            //Saving to local Storage
+            localStorage.setItem('MyFeedbackList', JSON.stringify(feedbacks));
+        }
+
+        //adding to local storage
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('button_submit').addEventListener('click', addFeedback);
+        });
+    </script>
 </body>
 
 </html>
